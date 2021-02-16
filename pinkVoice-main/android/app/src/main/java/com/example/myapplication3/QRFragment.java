@@ -1,6 +1,7 @@
 package com.example.myapplication3;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -41,7 +43,6 @@ public class QRFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_q_r, container, false);
-
     }
 
     @Override
@@ -56,20 +57,14 @@ public class QRFragment extends Fragment {
                 Toast.makeText(getContext(), "Scanned : " + result.getContents(), Toast.LENGTH_LONG).show();
 
                 //알림창 테스트
-                QR = result.getContents();
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                dialog.setTitle("제목").setMessage(QR+"번째 좌석을 이용하시겠습니까?").setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(),"취소", Toast.LENGTH_LONG).show();
-                    }
-                })
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getContext(),QR+"번째 자리 이용중", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
+                QR = result.getContents();//큐알코드 스캔 내용 저장
+                Dialog dialog;
+                dialog = new Dialog(getActivity());
+                dialog.setContentView(R.layout.dialog_alert);
+                TextView tv = (TextView)dialog.findViewById(R.id.seat_noti);
+                tv.setText(QR+"번째 좌석을 이용하시겠습니까?");
+                dialog.show();
+                
             }
         }
     }
