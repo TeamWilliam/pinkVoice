@@ -36,25 +36,6 @@ public class QRFragment extends Fragment {
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
 
         integrator.initiateScan();
-
-        Dialog dialog;//다이얼로그 생성
-        dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.dialog_alert);//커스텀다이얼로그연결
-        Button noBtn = dialog.findViewById(R.id.custom_cancel);
-        noBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-        dialog.findViewById(R.id.custom_confirm).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"를 선택했습니다.",Toast.LENGTH_LONG).show();
-
-            }
-        });
     }
 
 
@@ -84,9 +65,26 @@ public class QRFragment extends Fragment {
                 TextView tv = (TextView)dialog.findViewById(R.id.seat_noti);
                 tv.setText("\n"+QR+"번째 좌석입니다.\n 이용하시겠습니까?\n");//큐알 스캔내용 출력
                 dialog.show();
+                //Cancel 버튼 핸들러
+                Button noBtn = dialog.findViewById(R.id.custom_cancel);
+                noBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                });
+                //OK 버튼 핸들러
+                dialog.findViewById(R.id.custom_confirm).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(),QR+"번째 좌석을 이용합니다.",Toast.LENGTH_LONG).show();
+                        //좌석 이용중으로 디비 바꾸기
 
-
-
+                        //이용중 화면으로 전환
+                        
+                    }
+                });
             }
         }
     }
