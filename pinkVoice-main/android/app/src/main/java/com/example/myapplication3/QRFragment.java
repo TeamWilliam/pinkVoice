@@ -1,5 +1,7 @@
 package com.example.myapplication3;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +18,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 
 public class QRFragment extends Fragment {
+    String QR;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,22 @@ public class QRFragment extends Fragment {
                 Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_LONG).show();
             } else{ //스캔 된 경우
                 Toast.makeText(getContext(), "Scanned : " + result.getContents(), Toast.LENGTH_LONG).show();
+
+                //알림창 테스트
+                QR = result.getContents();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog.setTitle("제목").setMessage(QR+"번째 좌석을 이용하시겠습니까?").setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(),"취소", Toast.LENGTH_LONG).show();
+                    }
+                })
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getContext(),QR+"번째 자리 이용중", Toast.LENGTH_LONG).show();
+                            }
+                        }).show();
             }
         }
     }
