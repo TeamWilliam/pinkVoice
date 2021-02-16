@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,25 @@ public class QRFragment extends Fragment {
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
 
         integrator.initiateScan();
+
+        Dialog dialog;//다이얼로그 생성
+        dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_alert);//커스텀다이얼로그연결
+        Button noBtn = dialog.findViewById(R.id.custom_cancel);
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+        });
+        dialog.findViewById(R.id.custom_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"를 선택했습니다.",Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
 
@@ -58,13 +78,15 @@ public class QRFragment extends Fragment {
 
                 //알림창 테스트
                 QR = result.getContents();//큐알코드 스캔 내용 저장
-                Dialog dialog;
+                Dialog dialog;//다이얼로그 생성
                 dialog = new Dialog(getActivity());
-                dialog.setContentView(R.layout.dialog_alert);
+                dialog.setContentView(R.layout.dialog_alert);//커스텀다이얼로그연결
                 TextView tv = (TextView)dialog.findViewById(R.id.seat_noti);
-                tv.setText(QR+"번째 좌석을 이용하시겠습니까?");
+                tv.setText("\n"+QR+"번째 좌석입니다.\n 이용하시겠습니까?\n");//큐알 스캔내용 출력
                 dialog.show();
-                
+
+
+
             }
         }
     }
