@@ -49,7 +49,7 @@
 
         <meta-data
             android:name="com.example.myapplication3.API_KEY"
-            android:value="API KEY 넣기"/>
+            android:value="534c5457527373753333556c6c476f"/>
     </application>
 
 </manifest>
