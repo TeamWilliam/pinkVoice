@@ -4,7 +4,7 @@
     package="com.example.myapplication3">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 카메라, 갤러리 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 카메라, 갤러리, api 가져오기 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
