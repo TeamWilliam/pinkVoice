@@ -97,7 +97,8 @@ public class SeatView extends AppCompatActivity {
 
         showSeatStatus("1");
 
-        swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
+        // 오류생겨서 잠시 주석처리
+        // swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
