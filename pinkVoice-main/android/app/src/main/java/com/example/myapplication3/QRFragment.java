@@ -62,7 +62,7 @@ public class QRFragment extends Fragment {
                 Dialog dialog;//다이얼로그 생성
                 dialog = new Dialog(getActivity());
                 dialog.setContentView(R.layout.dialog_alert);//커스텀다이얼로그연결
-                TextView tv = (TextView)dialog.findViewById(R.id.seat_noti);
+                TextView tv = (TextView)dialog.findViewById(R.id.noti);
                 tv.setText("\n"+QR+"번째 좌석입니다.\n 이용하시겠습니까?\n");//큐알 스캔내용 출력
                 dialog.show();
                 //Cancel 버튼 핸들러
@@ -82,7 +82,8 @@ public class QRFragment extends Fragment {
                         //좌석 이용중으로 디비 바꾸기
 
                         //이용중 화면으로 전환
-                        
+                        Intent usingIntent = new Intent(getActivity(), UseSeat.class);
+                        startActivity(usingIntent);
                     }
                 });
             }

@@ -7,4 +7,5 @@
     <color name="colorSignin">#F4C0C0</color>
     <color name="colorLogin">#F0CFBD</color>
     <color name="zxing_viewfinder_mask">#FFFFFF</color>
+    <color name="takeoff">#FFEEF6</color>
 </resources>
