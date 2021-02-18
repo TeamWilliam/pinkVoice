@@ -47,7 +47,8 @@
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation" /> <!-- 큐알 꾸미기 -->
+            tools:replace="screenOrientation" />
+        <!-- 큐알 꾸미기 -->
         <activity android:name=".CaptureForm" />
 
         <meta-data
