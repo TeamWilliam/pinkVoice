@@ -96,9 +96,15 @@ public class SeatView extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         showSeatStatus("1");
+//        showSeatStatus("2");
+//        showSeatStatus("3");
+//        showSeatStatus("4");
+//        // ...
+//        showSeatStatus("5");
+//        showSeatStatus("6");
 
         // 오류생겨서 잠시 주석처리
-        // swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
+        swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -109,6 +115,8 @@ public class SeatView extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+
+
 
 //        button1_3_1.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -473,6 +481,11 @@ public class SeatView extends AppCompatActivity {
 //            }
 //        });
 
+    }
+
+    private void seat(String seatNumber) {
+        useSeatID(seatNumber, deviceToken);
+        useSeatToken( seatNumber, deviceToken);
     }
 
     private void useSeat(String seatNumber, String userID) {
