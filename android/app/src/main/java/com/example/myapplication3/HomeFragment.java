@@ -27,8 +27,8 @@ public class HomeFragment extends Fragment {
         BitmapDrawable bitmap;
 
         //지하철 노선도 사진 HorizontalScrollView
-        scrollView = (ScrollView) findViewById(R.id.scrollView);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        scrollView = (ScrollView)findViewById(R.id.scrollView);
+        imageView = (ImageView)findViewById(R.id.imageView);
         scrollView.setHorizontalScrollBarEnabled(true);
 
         Resources res = getResources();
@@ -40,14 +40,16 @@ public class HomeFragment extends Fragment {
         imageView.getLayoutParams().width = bitmapWidth;
         imageView.getLayoutParams().height = bitmapHeight;
 
-        Button button = findViewById(R.id.Chungmuro);
+        Button button =findViewById(R.id.Chungmuro);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,SubwayTimeActivity.class);
+                Intent intent=new Intent(getActivity(), SubwayTimeActivity.class);
                 startActivity(intent);
             }
         });
+
+
 
     }
 

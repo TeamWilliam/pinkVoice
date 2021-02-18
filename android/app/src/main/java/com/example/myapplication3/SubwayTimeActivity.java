@@ -26,31 +26,9 @@ public class SubwayTimeActivity extends AppCompatActivity {
             }
         });
 
-    
-    }
-
-
-<<<<<<< Updated upstream
-                textView.setText(sb.toString());
-                progress.dismiss();
-            }
-
-            @Override
-            protected String doInBackground(Void... params) {
-                String result = "";
-                try {
-                    //서울시 오픈 API 제공(샘플 주소 json으로 작업)
-                    result = Remote.getData("http://swopenapi.seoul.go.kr/api/subway/534c5457527373753333556c6c476f/xml/realtimeStationArrival/0/5/충무로");
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                return result;
-            }
-        }.execute();
 
     }
-=======
->>>>>>> Stashed changes
+
+
+
 }
