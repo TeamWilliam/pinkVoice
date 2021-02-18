@@ -8,4 +8,6 @@
     <color name="colorLogin">#F0CFBD</color>
     <color name="emptySeat">#F380A1</color>
     <color name="usedSeat">#7A7A7A</color>
+    <color name="zxing_viewfinder_mask">#FFFFFF</color>
+    <color name="takeoff">#FFEEF6</color>
 </resources>

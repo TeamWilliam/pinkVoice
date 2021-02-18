@@ -10,12 +10,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.content.res.Resources;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -24,25 +32,51 @@ import androidx.navigation.ui.NavigationUI;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-    ScrollView scrollView;
-    ImageView imageView;
-    BitmapDrawable bitmap;
+    //하단탭
+    Fragment qr;
+    Fragment home;
+    Fragment mypage;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                 R.id.navigation_qr, R.id.navigation_home, R.id.navigation_mypage)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        //하단 탭
+        qr = new QRFragment();
+        home = new HomeFragment();
+        mypage = new MypageFragment();
 
+        //초기 첫 화면
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, home).commit();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.navigation_qr:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, qr).commit();
+                                return true;
+
+                            case R.id.navigation_home:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, home).commit();
+                                return true;
+
+                            case R.id.navigation_mypage:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, mypage).commit();
+                                return true;
+                        }
+                        return false;
+                    }
+                }
+        );
+
+
+        //토큰
         SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
         if(sharedPreferences.getString("inputToken", "").equals("")) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -50,44 +84,83 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
         }
 
-        //지하철 노선도 사진 HorizontalScrollView
-        scrollView = (ScrollView) findViewById(R.id.scrollView);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        scrollView.setHorizontalScrollBarEnabled(true);
-
-        Resources res = getResources();
-        bitmap = (BitmapDrawable) res.getDrawable(R.drawable.route);
-        int bitmapWidth = bitmap.getIntrinsicWidth();
-        int bitmapHeight = bitmap.getIntrinsicHeight();
-
-        imageView.setImageDrawable(bitmap);
-        imageView.getLayoutParams().width = bitmapWidth;
-        imageView.getLayoutParams().height = bitmapHeight;
-
-        Button button=findViewById(R.id.Chungmuro);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,SubwayTimeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //getAbsCoord(R.id.imageView);
-
     }
 
-//    private void getAbsCoord(int resId) {
-//        View v = findViewById(resId);
-//        if (v == null) throw new IllegalArgumentException("this is not a view");
-//        Rect r = new Rect(); v.getGlobalVisibleRect(r); //RootView 레이아웃을 기준으로한 좌표.
-//        // custom Log
-//        //Log.i(v.getResources().getResourceName(resId).split(":")[1] + " 의절대좌표::", r.left, r.top, r.right, r.bottom);
-//    }
 
     // 식별자 지정
     private String getUUID() {
         return UUID.randomUUID().toString();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        //search_menu.xml 등록
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.search_menu,menu);
+        MenuItem mSearch = menu.findItem(R.id.search);
+
+
+        //menuItem을 이용해서 SearchView 변수 생성
+        SearchView sv=(SearchView)mSearch.getActionView();
+        //확인버튼 활성화
+        sv.setSubmitButtonEnabled(true);
+
+        //SearchView의 검색 이벤트
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            //검색버튼을 눌렀을 경우
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                TextView text = (TextView)findViewById(R.id.txtsearch);
+                text.setText(query + "를 검색합니다.");
+                return true;
+            }
+
+            //텍스트가 바뀔때마다 호출
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                TextView text = (TextView)findViewById(R.id.txtsearch);
+                text.setText("검색식 : "+newText);
+                return true;
+            }
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.navigation_qr:
+                                mSearch.setVisible(false);
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, qr).commit();
+                                return true;
+
+                            case R.id.navigation_mypage:
+                                mSearch.setVisible(false);
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, mypage).commit();
+                                return true;
+
+                            case R.id.navigation_home:
+                                mSearch.setVisible(true);
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, home).commit();
+
+                                return true;
+                        }
+                        return false;
+                    }
+                }
+        );
+
+
+        return true;
     }
 
 }

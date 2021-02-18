@@ -23,46 +23,14 @@ public class SubwayTimeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                getApi();
             }
         });
 
     
     }
 
-    private void getApi() {
-        new AsyncTask<Void, Void, String>() {
-            ProgressDialog progress;
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                progress = new ProgressDialog(SubwayTimeActivity.this);
-                progress.setTitle("다운로드");
-                progress.setMessage("download");
-                progress.setProgressStyle((ProgressDialog.STYLE_SPINNER));
-                progress.setCancelable(false);
-                progress.show();
-            }
 
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                StringBuffer sb = new  StringBuffer();
-                try {
-                    JSONObject json = new JSONObject(s);
-
-                    JSONArray rows = json.getJSONArray("realtimeArrivalList");
-
-                    int length = rows.length();
-                    for(int i=0; i < length; i ++){
-                        JSONObject result = (JSONObject) rows.get(i);
-                        String trainName = result.getString("trainLineNm");
-                        sb.append(trainName + "\n");
-
-                    }
-
-                }catch (Exception e ){}
-
+<<<<<<< Updated upstream
                 textView.setText(sb.toString());
                 progress.dismiss();
             }
@@ -83,4 +51,6 @@ public class SubwayTimeActivity extends AppCompatActivity {
         }.execute();
 
     }
+=======
+>>>>>>> Stashed changes
 }

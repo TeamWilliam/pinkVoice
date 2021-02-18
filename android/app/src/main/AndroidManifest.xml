@@ -16,17 +16,16 @@
         android:label="핑크보이스"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication3">
+        <activity android:name=".UseSeat"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
 
+        </activity>
         <activity
             android:name=".SeatView"
-            android:theme="@style/Theme.AppCompat">
-        </activity>
-
+            android:theme="@style/Theme.AppCompat"/>
         <activity
             android:name=".SubwayTimeActivity"
-            android:theme="@style/Theme.AppCompat">
-        </activity>
-
+            android:theme="@style/Theme.AppCompat"></activity>
         <activity
             android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -38,18 +37,22 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.Test.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Test.NoActionBar"></activity>
         <activity
             android:name=".RegisterActivity"
             android:theme="@style/Theme.Test.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" /> <!-- 큐알 꾸미기 -->
+        <activity android:name=".CaptureForm" />
 
         <meta-data
             android:name="com.example.myapplication3.API_KEY"
-            android:value="534c5457527373753333556c6c476f"/>
+            android:value="534c5457527373753333556c6c476f" />
     </application>
 
 </manifest>
