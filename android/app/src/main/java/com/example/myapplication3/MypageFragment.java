@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MypageFragment extends Fragment {
 
@@ -18,6 +19,7 @@ public class MypageFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_mypage, container, false); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+
         Button button1 = (Button) view.findViewById(R.id.logout); // click시 Fragment를 전환할 event를 발생시킬 버튼을 정의합니다.
 
         button1.setOnClickListener(new View.OnClickListener() {

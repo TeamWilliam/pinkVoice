@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-
 public class HomeFragment extends Fragment {
 
     @Override
@@ -53,13 +51,4 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
-
-
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_home, container, false);
-//    }
 }

@@ -25,7 +25,6 @@
             android:id="@+id/userName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="username"
             android:textSize="40dp"
             android:textColor="#000000"
             android:textAlignment="center"
