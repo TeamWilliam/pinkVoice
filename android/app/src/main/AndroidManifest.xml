@@ -13,7 +13,7 @@
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/icon"
-        android:label="핑크보이스"
+        android:label="Pink Voice"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication3">
         <activity android:name=".UseSeat"
