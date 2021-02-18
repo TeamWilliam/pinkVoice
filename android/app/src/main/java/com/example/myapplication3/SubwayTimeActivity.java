@@ -21,14 +21,13 @@ public class SubwayTimeActivity extends AppCompatActivity {
 
     String data;
     String dataStationName;
-    String dataSubwayLine;
+    String dataSubwayTimeUp;
     String dataCurrentTime;
 
-    TextView text;
     TextView stationName;
-    TextView subwayLine;
-    TextView stationBeforeAfter;
     TextView currentTime;
+    TextView up;
+    TextView down;
 
     EditText edit;
     @Override
@@ -38,6 +37,8 @@ public class SubwayTimeActivity extends AppCompatActivity {
 
         stationName= (TextView)findViewById(R.id.stationName);
         currentTime= (TextView)findViewById(R.id.currentTime);
+        up = (TextView)findViewById(R.id.up);
+        down = (TextView)findViewById(R.id.down);
 
 
         new Thread(new Runnable() {
@@ -46,6 +47,7 @@ public class SubwayTimeActivity extends AppCompatActivity {
                 //data=getXmlData();
                 dataStationName = getStationNum();
                 dataCurrentTime = getCurrentTime();
+                dataSubwayTimeUp = getSubwayTimeUp();
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -53,6 +55,7 @@ public class SubwayTimeActivity extends AppCompatActivity {
                         //text.setText(data);
                         stationName.setText(dataStationName);
                         currentTime.setText(dataCurrentTime);
+                        up.setText(dataSubwayTimeUp);
                     }
                 });
             }
@@ -96,7 +99,6 @@ public class SubwayTimeActivity extends AppCompatActivity {
 //                                buffer.append("3호선");
 //                                buffer.append("\n");
 //                            }
-//
 //                        }
 //                        else if(tag.equals("updnLine")){
 //                            buffer.append("상하행 정보 : ");
@@ -139,7 +141,81 @@ public class SubwayTimeActivity extends AppCompatActivity {
 //        buffer.append("파싱 끝\n");
 //        return buffer.toString();//StringBuffer 문자열 객체 반환
 //    }
-//
+    
+    //상행선 가져오기
+    String getSubwayTimeUp(){
+        Button button = findViewById(R.id.Chungmuro);
+        StringBuffer buffer=new StringBuffer();
+        String location = URLEncoder.encode("충무로");
+
+        String queryUrl="http://swopenAPI.seoul.go.kr/api/subway/534c5457527373753333556c6c476f/xml/realtimeStationArrival/0/5/"+location;
+        try{
+            URL url= new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
+            InputStream is= url.openStream(); //url위치로 입력스트림 연결
+
+            XmlPullParserFactory factory= XmlPullParserFactory.newInstance();//xml파싱을 위한
+            XmlPullParser xpp= factory.newPullParser();
+            xpp.setInput( new InputStreamReader(is, "UTF-8") ); //inputstream 으로부터 xml 입력받기
+
+            String tag;
+
+            xpp.next();
+            int eventType= xpp.getEventType();
+            while( eventType != XmlPullParser.END_DOCUMENT ){
+                switch( eventType ){
+                    case XmlPullParser.START_DOCUMENT:
+                        buffer.append("파싱 시작...\n\n");
+                        break;
+
+                    case XmlPullParser.START_TAG:
+                        tag= xpp.getName();//테그 이름 얻어오기
+
+                        if(tag.equals("subwayId")){
+                            xpp.next();
+                            String str = xpp.getText();
+                            if (str.equals("1004")){
+                                buffer.append("4호선");
+                                buffer.append("\n");
+                            }
+                            else if (str.equals("1003")){
+                                buffer.append("3호선");
+                                buffer.append("\n");
+                            }
+                        }
+                        else if(tag.equals("updnLine")){
+                            buffer.append("상하행 정보 : ");
+                            xpp.next();
+                            buffer.append(xpp.getText());//title 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                            buffer.append("\n"); //줄바꿈 문자 추가
+                        }
+                        else if(tag.equals("arvlMsg2")){
+                            buffer.append("열차 도착정보 :");
+                            xpp.next();
+                            buffer.append(xpp.getText());//telephone 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                            buffer.append("\n");//줄바꿈 문자 추가
+                        }
+                        break;
+
+                    case XmlPullParser.TEXT:
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        tag= xpp.getName(); //테그 이름 얻어오기
+
+                        if(tag.equals("item")) buffer.append("\n");// 첫번째 검색결과종료..줄바꿈
+                        break;
+                }
+
+                eventType= xpp.next();
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        buffer.append("파싱 끝\n");
+        return buffer.toString();//StringBuffer 문자열 객체 반환
+    }
 
 
     //현재 역 이름 가져오기
@@ -189,33 +265,33 @@ public class SubwayTimeActivity extends AppCompatActivity {
 
 
     //현재시간 가져오기
-    String getCurrentTime(){
-        StringBuffer buffer=new StringBuffer();
+    String getCurrentTime() {
+        StringBuffer buffer = new StringBuffer();
         String location = URLEncoder.encode("충무로");
 
-        String queryUrl="http://swopenAPI.seoul.go.kr/api/subway/534c5457527373753333556c6c476f/xml/realtimeStationArrival/0/5/"+location;
-        try{
-            URL url= new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
-            InputStream is= url.openStream(); //url위치로 입력스트림 연결
+        String queryUrl = "http://swopenAPI.seoul.go.kr/api/subway/534c5457527373753333556c6c476f/xml/realtimeStationArrival/0/5/" + location;
+        try {
+            URL url = new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
+            InputStream is = url.openStream(); //url위치로 입력스트림 연결
 
-            XmlPullParserFactory factory= XmlPullParserFactory.newInstance();//xml파싱을 위한
-            XmlPullParser xpp= factory.newPullParser();
-            xpp.setInput( new InputStreamReader(is, "UTF-8") ); //inputstream 으로부터 xml 입력받기
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();//xml파싱을 위한
+            XmlPullParser xpp = factory.newPullParser();
+            xpp.setInput(new InputStreamReader(is, "UTF-8")); //inputstream 으로부터 xml 입력받기
 
             String tag;
 
             xpp.next();
-            int eventType= xpp.getEventType();
-            while( eventType != XmlPullParser.END_DOCUMENT ){
-                switch( eventType ){
+            int eventType = xpp.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
                     case XmlPullParser.START_DOCUMENT:
                         buffer.append("파싱 시작...\n\n");
                         break;
 
                     case XmlPullParser.START_TAG:
-                        tag= xpp.getName();//테그 이름 얻어오기
+                        tag = xpp.getName();//테그 이름 얻어오기
 
-                        if(tag.equals("recptnDt")){
+                        if (tag.equals("recptnDt")) {
                             xpp.next();
                             buffer.append("현재 열차 정보는 실시간 정보입니다    ");
                             buffer.append(xpp.getText());//category 요소의 TEXT 읽어와서 문자열버퍼에 추가
@@ -223,15 +299,14 @@ public class SubwayTimeActivity extends AppCompatActivity {
                         }
                         break;
                 }
-                eventType= xpp.next();
+                eventType = xpp.next();
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return buffer.toString();//StringBuffer 문자열 객체 반환
     }
-
 
 
 }
