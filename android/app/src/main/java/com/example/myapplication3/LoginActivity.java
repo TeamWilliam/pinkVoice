@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class LoginActivity extends Activity {
 
@@ -52,8 +53,16 @@ public class LoginActivity extends Activity {
         // firebase 정의
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        //토큰
         SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+        if(sharedPreferences.getString("inputToken", "").equals("")) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("inputToken", getUUID());
+            editor.commit();
+        }
+
         deviceToken = sharedPreferences.getString("inputToken", "");
+
 
         // 배경 터치시 키보드 내리기
         loginBack.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +97,11 @@ public class LoginActivity extends Activity {
             }
         });
 
+    }
+
+    // 식별자 지정
+    private String getUUID() {
+        return UUID.randomUUID().toString();
     }
 
     // 회원 정보 있는 지 확인

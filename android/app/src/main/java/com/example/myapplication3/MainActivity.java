@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //토큰
+        SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+        if(sharedPreferences.getString("inputToken", "").equals("")) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("inputToken", getUUID());
+            editor.commit();
+            Toast.makeText(MainActivity.this, "mainActivity", Toast.LENGTH_SHORT).show();
+        }
 
         //하단 탭
         qr = new QRFragment();
@@ -72,17 +82,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-
-
-        //토큰
-        SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
-        if(sharedPreferences.getString("inputToken", "").equals("")) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("inputToken", getUUID());
-            editor.commit();
-        }
-
-
 
     }
 

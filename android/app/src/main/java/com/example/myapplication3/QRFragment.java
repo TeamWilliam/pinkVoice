@@ -4,9 +4,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,16 +20,31 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication3.data.model.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import android.content.SharedPreferences;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class QRFragment extends Fragment {
     String QR;
+    private DatabaseReference mDatabase;
+    private String deviceToken;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //SharedPreferences sharedPreferences = getSharedPreference("token", MODE_PRIVATE);
+        //deviceToken = sharedPreferences.getString("inputToken", "");
 
         IntentIntegrator integrator = IntentIntegrator.forSupportFragment(QRFragment.this);
 
@@ -63,7 +82,7 @@ public class QRFragment extends Fragment {
                 dialog = new Dialog(getActivity());
                 dialog.setContentView(R.layout.dialog_alert);//커스텀다이얼로그연결
                 TextView tv = (TextView)dialog.findViewById(R.id.noti);
-                tv.setText("\n"+QR+"번째 좌석입니다.\n 이용하시겠습니까?\n");//큐알 스캔내용 출력
+                tv.setText("\n"+"1-3 "+QR+"번째 좌석입니다.\n 이용하시겠습니까?\n");//큐알 스캔내용 출력
                 dialog.show();
                 //Cancel 버튼 핸들러
                 Button noBtn = dialog.findViewById(R.id.custom_cancel);
@@ -89,4 +108,6 @@ public class QRFragment extends Fragment {
             }
         }
     }
+
+
 }
