@@ -216,9 +216,10 @@ public class SubwayTimeActivity extends AppCompatActivity {
                         tag= xpp.getName();//테그 이름 얻어오기
 
                         if(tag.equals("recptnDt")){
-                            buffer.append("🚄 현재 열차 도착 정보 갱신 시간 : ");
                             xpp.next();
-                            buffer.append(xpp.getText());//title 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                            buffer.append("현재 열차 정보는 실시간 정보입니다    ");
+                            buffer.append(xpp.getText());//category 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                            buffer.append("\n\n");//줄바꿈 문자 추가
                         }
                         break;
                 }
@@ -230,7 +231,6 @@ public class SubwayTimeActivity extends AppCompatActivity {
         }
         return buffer.toString();//StringBuffer 문자열 객체 반환
     }
-    
 
 
 
