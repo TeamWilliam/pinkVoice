@@ -1,8 +1,10 @@
 package com.example.myapplication3;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -44,6 +46,28 @@ public class SubwayTimeActivity extends AppCompatActivity {
         currentTime= (TextView)findViewById(R.id.currentTime);
         up = (TextView)findViewById(R.id.up);
         down = (TextView)findViewById(R.id.down);
+
+        TextView textdown, textup;
+        textup = (TextView) findViewById(R.id.up);
+        textdown = (TextView) findViewById(R.id.down);
+
+        textup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(getBaseContext(), SeatView.class);
+                startActivity(registerIntent);
+                finish();
+            }
+        });
+
+        textdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(getBaseContext(), SeatView.class);
+                startActivity(registerIntent);
+                finish();
+            }
+        });
 
 
         new Thread(new Runnable() {
@@ -91,6 +115,7 @@ public class SubwayTimeActivity extends AppCompatActivity {
             }
         }).start();
     }
+
 //    String getXmlData(){
 //        Button button = findViewById(R.id.Chungmuro);
 //        StringBuffer buffer=new StringBuffer();
