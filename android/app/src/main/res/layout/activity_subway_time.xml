@@ -55,6 +55,7 @@
             android:background="#EAEAEA"
             android:textSize="20sp"
             android:gravity="center" />
+
     </LinearLayout>
 
 
