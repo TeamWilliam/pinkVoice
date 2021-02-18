@@ -230,7 +230,7 @@ public class SubwayTimeActivity extends AppCompatActivity {
         }
         return buffer.toString();//StringBuffer 문자열 객체 반환
     }
-    }
+    
 
 
 
