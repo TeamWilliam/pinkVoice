@@ -196,7 +196,7 @@ public class SubwayTimeActivity extends AppCompatActivity {
 //        buffer.append("파싱 끝\n");
 //        return buffer.toString();//StringBuffer 문자열 객체 반환
 //    }
-    
+
     //상행선 가져오기
     String getSubwayTimeUp(){
 //        Button button = findViewById(R.id.Chungmuro);
