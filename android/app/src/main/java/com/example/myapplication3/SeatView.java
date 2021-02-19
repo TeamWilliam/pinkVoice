@@ -96,6 +96,10 @@ public class SeatView extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         showSeatStatus("1");
+        showSeatStatus2("2");
+        showSeatStatus3("3");
+        showSeatStatus4("4");
+        showSeatStatus5("5");
 //        showSeatStatus("2");
 //        showSeatStatus("3");
 //        showSeatStatus("4");
@@ -111,6 +115,10 @@ public class SeatView extends AppCompatActivity {
             public void onRefresh() {
                 // call method for refresh
                 showSeatStatus("1");
+                showSeatStatus2("2");
+                showSeatStatus3("3");
+                showSeatStatus4("4");
+                showSeatStatus5("5");
 
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -582,4 +590,115 @@ public class SeatView extends AppCompatActivity {
         });
     }
 
+    private void showSeatStatus2(String seatNumber) {
+
+        final DatabaseReference seatRef = mDatabase.child("Seats").child("seat"+seatNumber).child("seatUser");
+
+        seatRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    String seatUser = (String) snapshot.getValue();
+
+                    if (!seatUser.equals("")) {
+                        button2_3_5.setBackgroundColor(getColor(R.color.usedSeat));
+                    }
+                    else {
+                        button2_3_5.setBackgroundColor(getColor(R.color.emptySeat));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    private void showSeatStatus3(String seatNumber) {
+
+        final DatabaseReference seatRef = mDatabase.child("Seats").child("seat"+seatNumber).child("seatUser");
+
+        seatRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    String seatUser = (String) snapshot.getValue();
+
+                    if (!seatUser.equals("")) {
+                        button3_3_1.setBackgroundColor(getColor(R.color.usedSeat));
+                    }
+                    else {
+                        button3_3_1.setBackgroundColor(getColor(R.color.emptySeat));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    private void showSeatStatus4(String seatNumber) {
+
+        final DatabaseReference seatRef = mDatabase.child("Seats").child("seat"+seatNumber).child("seatUser");
+
+        seatRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    String seatUser = (String) snapshot.getValue();
+
+                    if (!seatUser.equals("")) {
+                        button4_3_1.setBackgroundColor(getColor(R.color.usedSeat));
+                    }
+                    else {
+                        button4_3_1.setBackgroundColor(getColor(R.color.emptySeat));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    private void showSeatStatus5(String seatNumber) {
+
+        final DatabaseReference seatRef = mDatabase.child("Seats").child("seat"+seatNumber).child("seatUser");
+
+        seatRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    String seatUser = (String) snapshot.getValue();
+
+                    if (!seatUser.equals("")) {
+                        button5_3_5.setBackgroundColor(getColor(R.color.usedSeat));
+                    }
+                    else {
+                        button5_3_5.setBackgroundColor(getColor(R.color.emptySeat));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
 }
