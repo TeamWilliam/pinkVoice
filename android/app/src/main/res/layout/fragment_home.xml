@@ -32,25 +32,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="500dp"
                     android:layout_marginBottom="100dp"/>
-
+                <ImageView
+                    android:id="@+id/place"
+                    android:layout_marginTop="606dp"
+                    android:layout_marginLeft="1007dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
                 <Button
-                    android:layout_marginTop="610dp"
-                    android:layout_marginLeft="970dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="630dp"
+                    android:layout_marginLeft="1010dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:textSize="20sp"
-                    android:background="#FF0000"
+                    android:background="@android:color/transparent"
                     android:id="@+id/Chungmuro"
-                    android:text="충무로" />
+                     />
                 <Button
-                    android:layout_marginTop="780dp"
-                    android:layout_marginLeft="1075dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="607dp"
+                    android:layout_marginLeft="1007dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:textSize="20sp"
-                    android:background="#0100FF"
-                    android:id="@+id/Oksu"
-                    android:text="옥수" />
+                    android:background="@android:color/transparent"
+                    android:id="@+id/go"/>
+
+
 
             </RelativeLayout>
 
